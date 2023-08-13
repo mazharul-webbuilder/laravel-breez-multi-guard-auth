@@ -2,10 +2,24 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Admin Routes
+Route::prefix('admin')->group(function(){
+    Route::get('/login', [AdminController::class, 'index'])->name('login_form');
+    Route::post('/login-owner', [AdminController::class, 'login'])->name('admin.login');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('admin');
+});
+
+
+
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
